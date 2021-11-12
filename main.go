@@ -2,13 +2,18 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/hou27/learngo/example"
+	"strings"
 )
 
+func lenAndUpper(name string) (int, string) {
+	return len(name), strings.ToUpper(name)
+}
+
+func repeatMe(words ...string) {
+	fmt.Println(words)
+}
+
 func main() {
-	example.PrintTwo()
-	name := "hou27" // declaration + assignment ( go guess the type for you. )
-	name = "jalapeno"
-	fmt.Println(name) // if you want to export something, start with uppercase.
+	totalLenght, _ := lenAndUpper("nico")
+	fmt.Println(totalLenght)
 }
