@@ -14,6 +14,7 @@ func repeatMe(words ...string) {
 }
 
 func main() {
-	totalLenght, _ := lenAndUpper("nico")
+	totalLenght, _ := lenAndUpper("jalapeno")
 	fmt.Println(totalLenght)
+	repeatMe("asgas", "dsagdgdgsa", "jalale", "houh")
 }
