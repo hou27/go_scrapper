@@ -2,9 +2,14 @@ package main
 
 import "fmt"
 
+type person struct {
+	name    string
+	age     int
+	favFood []string
+}
+
 func main() {
-	jalapeno := map[string/* typeof key */]string/* typeof value */{"name": "hou27", "age": "22"}
-	for key, value := range jalapeno {
-		fmt.Println(key, value)
-	}
+	favFood := []string{"jelly", "sushi"}
+	jalapeno := person{name: "jalapeno", age: 22, favFood: favFood} // == person{"jalapeno", 22, favFood}
+	fmt.Println(jalapeno)
 }
