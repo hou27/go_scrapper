@@ -1,6 +1,9 @@
 package accounts
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+)
 
 // add comment to export(optional)
 // Account struct
@@ -42,6 +45,8 @@ func (a Account) Balance() int {
 	return a.balance
 }
 
+// error have two types -> error, nil
+
 // Withdraw x amount from your account
 func (a *Account) Withdraw(amount int) error {
 	if a.balance < amount {
@@ -49,4 +54,18 @@ func (a *Account) Withdraw(amount int) error {
 	}
 	a.balance -= amount
 	return nil // is like null or none
+}
+
+// ChangeOwner of the account
+func (a *Account) ChangeOwner(newOwner string) {
+	a.owner = newOwner
+}
+
+// Owner of the account
+func (a Account) Owner() string {
+	return a.owner
+}
+
+func (a Account) String() string { // use method on your struct ( it's like __str__ in python. )
+	return fmt.Sprint(a.Owner(), "'s account.\nHas: ", a.Balance())
 }
