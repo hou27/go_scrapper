@@ -45,3 +45,27 @@ func (d Diiiii) Add(word, def string) error {
 	}
 	return nil
 }
+
+// Update a word to the dictionary
+func (d Diiiii) Update(word, def string) error {
+	_, err := d.Search(word)
+	switch err {
+	case errNotFound:
+		return errNotFound
+	case nil:
+		d[word] = def
+	}
+	return nil
+}
+
+// Delete a word to the dictionary
+func (d Diiiii) Delete(word string) error {
+	_, err := d.Search(word)
+	switch err {
+	case errNotFound:
+		return errNotFound
+	case nil:
+		delete(d, word)
+	}
+	return nil
+}

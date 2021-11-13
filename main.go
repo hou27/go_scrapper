@@ -16,8 +16,22 @@ func main() {
 	}
 	mean, _ := dictionary.Search(word)
 	fmt.Println("found -", word, "\ndefinition:", mean)
+
 	err2 := dictionary.Add(word, definition)
 	if err2 != nil {
 		fmt.Println(err2)
 	}
+
+	err3 := dictionary.Update(word, "byebye")
+	if err3 != nil {
+		fmt.Println(err3)
+	}
+	fmt.Println(dictionary)
+
+	err4 := dictionary.Delete(word)
+	if err4 != nil {
+		fmt.Println(err3)
+	}
+
+	fmt.Println(dictionary)
 }
