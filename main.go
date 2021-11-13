@@ -6,15 +6,19 @@ import (
 )
 
 func main() {
-	// goroutines
-	go parallelCount("hou27")
-	go parallelCount("jalapeno")
-	time.Sleep(time.Second * 3)
+	// channel
+	c := make(chan bool)
+	people := [2]string{"jalapeno", "hou27"}
+	for _, person := range people {
+		go isSexy(person, c)
+	}
+	fmt.Println(<-c) // main func wait until reply
+	fmt.Println(<-c)
+	// fmt.Println(<-c)
 }
 
-func parallelCount(person string) {
-	for i := 0; i < 10; i++ {
-		fmt.Println(person, "is sexy", i)
-		time.Sleep(time.Second)
-	}
+func isSexy(person string, c chan bool) {
+	time.Sleep(time.Second * 3)
+	fmt.Println(person)
+	c <- true // send true to channel
 }
