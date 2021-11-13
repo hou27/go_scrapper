@@ -1,15 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
 
-type person struct {
-	name    string
-	age     int
-	favFood []string
-}
+	"github.com/hou27/learngo/accounts"
+)
 
 func main() {
-	favFood := []string{"jelly", "sushi"}
-	jalapeno := person{name: "jalapeno", age: 22, favFood: favFood} // == person{"jalapeno", 22, favFood}
-	fmt.Println(jalapeno)
+	account := accounts.NewAccount("hou27")
+
+	fmt.Println(account)
 }
