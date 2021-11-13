@@ -13,14 +13,20 @@ func NewAccount(owner string) *Account {
 	return &account
 }
 
-type Thing struct {
-    Name  string
-    Num   int
+/**
+ * method
+ *
+ * method has a struct behind it's name.
+ * it is called receiver.
+ *
+ */
+
+// Deposit x amount on your account
+func (a Account) Deposit(amount int) {
+	a.balance += amount
 }
 
-func NewThing(someParameter string) *Thing {
-    p := new(Thing)
-    p.Name = someParameter
-    p.Num = 33 // <- a very sensible default value
-    return p
+// Balance of your account
+func (a Account) Balance() int {
+	return a.balance
 }
