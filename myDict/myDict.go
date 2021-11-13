@@ -6,6 +6,7 @@ import "errors"
 type Diiiii map[string]string
 
 var errNotFound = errors.New("Not Found")
+var errWordExists = errors.New("That word already exists")
 
 /**
  * Map types are reference types, like pointers or slices.
@@ -31,4 +32,16 @@ func (d Diiiii) Search(word string) (string, error) {
 		return value, nil
 	}
 	return "", errNotFound
+}
+
+// Add a word to the dictionary
+func (d Diiiii) Add(word, def string) error {
+	_, err := d.Search(word)
+	switch err {
+	case errNotFound:
+		d[word] = def
+	case nil:
+		return errWordExists
+	}
+	return nil
 }
