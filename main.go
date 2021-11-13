@@ -2,17 +2,16 @@ package main
 
 import (
 	"fmt"
-	"log"
 
-	"github.com/hou27/learngo/accounts"
+	"github.com/hou27/learngo/myDict"
 )
 
 func main() {
-	account := accounts.NewAccount("jalapeno")
-	account.Deposit(10)
-	err := account.Withdraw(6)
-	if err != nil { // err handling
-		log.Fatalln(err)
+	dictionary := myDict.Diiiii{"first": "First word"}
+	definition, err := dictionary.Search("first")
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(definition)
 	}
-	fmt.Println(account)
 }
