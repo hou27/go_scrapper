@@ -28,12 +28,13 @@ var baseURL string = "https://kr.indeed.com/jobs?q=go&limit=50"
 var errRequestFailed = errors.New("Request failed")
 
 func main() {
+	var jobs []extractedJob
 	totalPages := getPages()
-
 	for i := 0; i < totalPages; i++ {
-		jobs := getPage(i)
-		fmt.Println(jobs)
+		extractedJobs := getPage(i)
+		jobs = append(jobs, extractedJobs...) // extractedjobs... ::: the values inside of extractedjobs
 	}
+	fmt.Println(jobs)
 }
 
 func getPage(page int) []extractedJob {
