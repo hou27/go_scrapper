@@ -1,10 +1,12 @@
 package main
 
 import (
+	"encoding/csv"
 	"errors"
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 
@@ -34,7 +36,9 @@ func main() {
 		extractedJobs := getPage(i)
 		jobs = append(jobs, extractedJobs...) // extractedjobs... ::: the values inside of extractedjobs
 	}
-	fmt.Println(jobs)
+	
+	writeJobs(jobs)
+	fmt.Println("Done, extracted", len(jobs))
 }
 
 func getPage(page int) []extractedJob {
@@ -92,6 +96,25 @@ func extractJob(card *goquery.Selection) extractedJob {
 		location: location,
 		salary:   salary,
 		summary:  summary,
+	}
+}
+
+func writeJobs(jobs []extractedJob) {
+	file, err := os.Create("jobs.csv")
+	checkErr(err)
+
+	w := csv.NewWriter(file)
+	defer w.Flush() // Flush writes any buffered data to the underlying io.Writer.
+
+	headers := []string{"LINK", "Title", "Location", "Salary", "Summary"}
+
+	wErr := w.Write(headers)
+	checkErr(wErr)
+
+	for _, job := range jobs {
+		jobSlice := []string{"https://kr.indeed.com/viewjob?jk=" + job.link, job.title, job.location, job.salary, job.summary}
+		jwErr := w.Write(jobSlice)
+		checkErr(jwErr)
 	}
 }
 
