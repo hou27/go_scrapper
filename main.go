@@ -5,10 +5,13 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/PuerkitoBio/goquery"
 )
 
+//https://stackoverflow.com/questions/58518588/vscode-could-not-import-golang-package
+//https://golang.org/doc/tutorial/create-module
 type requestResult struct {
 	url    string
 	status string
@@ -26,7 +29,7 @@ func main() {
 }
 
 func getPage(page int) {
-	pageURL := baseURL + "&start=" + strconv.itoa(page*50) // integer to ascii
+	pageURL := baseURL + "&start=" + strconv.Itoa(page*50) // integer to ascii
 	fmt.Println("Requesting", pageURL)
 }
 
