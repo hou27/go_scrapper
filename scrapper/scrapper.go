@@ -26,8 +26,8 @@ type requestResult struct {
 }
 
 // Scrape Jobs from Indeed
-func Scrape() {
-	var baseURL string = "https://kr.indeed.com/jobs?q=go&limit=50"
+func Scrape(term string) {
+	var baseURL string = "https://kr.indeed.com/jobs?q=" + term + "&limit=50"
 	var jobs []extractedJob
 	c := make(chan []extractedJob)
 	
@@ -96,7 +96,7 @@ func extractJob(card *goquery.Selection, c chan<- extractedJob) {
 	link, _ := card.Attr("href")
 	title:= card.Find(".jobTitle>span").Text()
 	location := card.Find(".companyLocation").Text()
-	salary := cleanString(card.Find(".salary-snippet").Text())
+	salary := CleanString(card.Find(".salary-snippet").Text())
 	summary := card.Find(".job-snippet").Text()
 	c <- extractedJob{
 		link:     link,
@@ -114,6 +114,7 @@ func writeJobs(jobs []extractedJob) {
 	w := csv.NewWriter(file)
 	defer w.Flush() // Flush writes any buffered data to the underlying io.Writer.
 	// https://stackoverflow.com/questions/49166370/why-do-you-need-flush-at-all-if-close-is-enough/49166489#49166489
+	defer file.Close()
 
 	headers := []string{"LINK", "Title", "Location", "Salary", "Summary"}
 
@@ -127,7 +128,7 @@ func writeJobs(jobs []extractedJob) {
 	}
 }
 
-func cleanString(str string) string {
+func CleanString(str string) string {
 	// clean the space from the sides, clean the gap between strings(return arr), concatenates the elements of its first argument to create a single string.
 	/**
 	FieldsFunc splits the string s at each run of Unicode code points c satisfying f(c) and returns an array of slices of s. If all code points in s satisfy f(c) or the string is empty, an empty slice is returned.
